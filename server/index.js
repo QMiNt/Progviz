@@ -1,11 +1,26 @@
-var app = require('express')();
+var express = require('express');
+const app = express()
+var path = require('path')
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-
+const staticPath = path.join(__dirname,"./public")
+console.log(staticPath);
+app.use(express.static(staticPath));
 app.get('/view', (req, res) => {
-    res.sendFile(__dirname + '/display.html');
+    res.sendFile(__dirname + '/public/streamview.html');
 })
-
+app.get('/home', (req, res) => {
+    res.sendFile(__dirname + '/public/home.html');
+})
+app.get('/startst', (req, res) => {
+    res.sendFile(__dirname + '/public/regform.html');
+})
+app.get('/dashboard', (req, res) => {
+    res.sendFile(__dirname + '/public/Dashboard.html');
+})
+app.get('/started', (req, res) => {
+    res.sendFile(__dirname + '/public/started.html');
+})
 io.on('connection', (socket)=> {
 
     socket.on("join-message", (roomId) => {

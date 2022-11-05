@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>ProgViz Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/logstyle.css">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"> -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="#Welcome" class="logo">
+            <img src="./pic/new.svg">
+            <span class="nav-item">Aditya</span>
+          </a></li>
+        <li><a href="/dashboard">
+            <i class="fas fa-bullseye"></i>
+            <span class="nav-item">Dashboard</span>
+          </a></li>
+        <li><a href="/view">
+            <i class="fas fa-star"></i>
+            <span class="nav-item">View</span>
+          </a></li>
+        <li><a href="/startst">
+            <i class="fas fa-users"></i>
+            <span class="nav-item">Go Live</span>
+          </a></li>
+      </ul>
+    </nav>
+
+
+    <section class="main">
+      <div class="main-top">
+        <h1>PROGVIZ</h1>
+        <!-- <button onclick="toggle()"><i class="fas fa-user-cog"> <span>&nbsp; Login/Register</span></i></button> -->
+      </div>
+      <div class="view-stream"style="width: 60%; height: 60%;">
+        <img style="width: 100%; height: 100%;  margin-left: 5% " id="view1"/>
+      </div>
+        <h1>Database Functions</h1>
+        <h3>Tech : C++, SQL</h3>
+        <p>Want to create some database functions likecreating a new database, putting data in the database, Reading data, updating data, deleting data </p>
+        <h5><a href="">Github</a></h5>
+    </section>
+  </div>
+
+</body>
+<!-- <script src="../src/index.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" crossorigin="anonymous"></script>
+<script>
+  window.onload = function() {
+            var room = prompt("Please enter room ID : ");
+            if(room.trim().length == 0) {
+              document.write("<h1> Room ID is mandatory to join </h1>");
+              return;
+            }
+            
+            socket = io.connect('http://192.168.56.1:5000');
+            
+            socket.emit("join-message", room);
+            socket.on('screen-data', function(message){
+              $("img#view1").attr("src", "data:image/png;base64," + message);
+              
+            })
+        }
+</script>
+</html>
